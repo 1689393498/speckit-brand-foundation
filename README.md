@@ -19,10 +19,10 @@
 ### 方式一：从发布压缩包安装（推荐）
 
 ```bash
-specify extension add --from https://gitee.com/LeisDevelopment/brand-foundation/raw/main/release/brand-foundation-1.0.0.zip
+specify extension add --from https://github.com/1689393498/spec-brand-foundation/raw/main/release/brand-foundation-1.0.0.zip
 ```
 
-- 当前托管在 Gitee；如果仓库迁移，替换为新的 HTTPS 地址。
+- GitHub 为主仓库，Gitee 保留镜像；如果仓库迁移，替换为新的 HTTPS 地址。
 - 首次安装会提示 **Untrusted Source**，确认来源可信后输入 `y` 继续。
 - 只支持 HTTPS（本机 `localhost` 调试可用 HTTP）。
 
@@ -121,7 +121,8 @@ brand-foundation/
 │   └── brand.md
 ├── scripts/
 │   └── package.py
-├── README.md
+├── README.md        # 中文
+├── README.en.md     # English
 ├── CHANGELOG.md
 ├── LICENSE
 ├── release/         # 已提交的发布归档，供 --from 下载

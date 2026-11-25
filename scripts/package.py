@@ -18,7 +18,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist"
-INCLUDE_FILES = ["extension.yml", "README.md", "CHANGELOG.md", "LICENSE"]
+INCLUDE_FILES = [
+    "extension.yml",
+    "README.md",
+    "README.en.md",
+    "CHANGELOG.md",
+    "LICENSE",
+]
 INCLUDE_DIRS = ["commands"]
 
 
