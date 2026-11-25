@@ -1,5 +1,7 @@
 # Brand Foundation Extension
 
+中文 | [English](README.en.md)
+
 **Brand Foundation** 是一个 Spec Kit 扩展，面向已经有 `spec.md`、但还没建立品牌的项目。
 
 它把品牌策划拆成四个可确认的阶段：定位与锚点、名称与查重、Slogan 与全案、固化与交付。它不生成 logo 或 VI，而是产出品牌地基文档：给谁、为什么选这个名字、怎么说、视觉和语言的方向与底线。
