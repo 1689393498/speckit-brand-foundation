@@ -3,11 +3,12 @@ schema_version: "1.0"
 extension:
   id: brand
   name: "Brand Foundation"
-  version: "1.0.0"
-  description: "从 spec.md 出发，按四阶段流程完成品牌策划：文化锚点、名称查重、Slogan 与全案、定稿固化，产出 brand.md 和查重报告"
+  version: "1.1.0"
+  description: "Four-stage brand planning from spec.md: cultural anchors, name screening, slogan & full plan, finalization. Produces brand.md and a name-check report. 四阶段品牌策划：文化锚点、名称查重、Slogan 与全案、定稿固化。"
   category: "product"
   effect: "read-write"
   author: "Lei"
+  repository: "https://github.com/1689393498/spec-brand-foundation"
   license: MIT
 
 requires:
@@ -17,7 +18,7 @@ provides:
   commands:
     - name: "speckit.brand.foundation"
       file: "commands/brand.md"
-      description: "四阶段品牌策划工作流：文化锚点、名称查重、Slogan 与全案、定稿固化；逐阶段确认，产出 docs/brand/brand.md 与 name-check.md"
+      description: "Four-stage brand planning workflow with human confirmation at every stage: cultural anchors, name screening, slogan & full plan, finalization. Produces docs/brand/brand.md and name-check.md. 四阶段品牌策划工作流，逐阶段确认。"
 
 tags:
   - brand

@@ -19,7 +19,7 @@ Names and slogans are always decided by a human. When name checks can't reach th
 ### Option 1: Release archive (recommended)
 
 ```bash
-specify extension add --from https://github.com/1689393498/spec-brand-foundation/raw/main/release/brand-foundation-1.0.0.zip
+specify extension add --from https://github.com/1689393498/spec-brand-foundation/raw/main/release/brand-foundation-1.1.0.zip
 ```
 
 - The project is mirrored on Gitee; if the repository moves, replace the URL with the new HTTPS address.
@@ -62,7 +62,19 @@ Optional extra guidance can be appended:
 /speckit-brand-foundation professional tone, not playful, may also serve B2B
 ```
 
+Optional context is folded into Stage 1; the four-stage flow and confirmation gates stay the same.
+
 Other integrations use their own invocation syntax.
+
+### Language
+
+All questions, stage summaries, and generated documents follow the language of `spec.md` automatically. You can also request a language explicitly:
+
+```text
+/speckit-brand-foundation please write everything in English
+```
+
+The command prompt itself is written in English so international users and contributors can read and extend it.
 
 ## The Four Stages
 

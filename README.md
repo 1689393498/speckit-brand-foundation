@@ -19,7 +19,7 @@
 ### 方式一：从发布压缩包安装（推荐）
 
 ```bash
-specify extension add --from https://github.com/1689393498/spec-brand-foundation/raw/main/release/brand-foundation-1.0.0.zip
+specify extension add --from https://github.com/1689393498/spec-brand-foundation/raw/main/release/brand-foundation-1.1.0.zip
 ```
 
 - GitHub 为主仓库，Gitee 保留镜像；如果仓库迁移，替换为新的 HTTPS 地址。
@@ -63,6 +63,16 @@ specify extension info brand --json
 ```
 
 其他集成使用各自的调用语法。
+
+### 语言
+
+所有提问、阶段汇报和产出文档自动跟随 `spec.md` 的语言；也可以在调用时显式指定：
+
+```text
+/speckit-brand-foundation 请用英文输出
+```
+
+命令提示词本身是英文，便于国际用户阅读与贡献，不影响中文交互。
 
 ## 四个阶段
 
