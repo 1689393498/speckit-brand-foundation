@@ -1,0 +1,27 @@
+schema_version: "1.0"
+
+extension:
+  id: brand
+  name: "Brand Foundation"
+  version: "1.0.0"
+  description: "从 spec.md 出发，按四阶段流程完成品牌策划：文化锚点、名称查重、Slogan 与全案、定稿固化，产出 brand.md 和查重报告"
+  category: "product"
+  effect: "read-write"
+  author: "Lei"
+  license: MIT
+
+requires:
+  speckit_version: ">=1.4.0"
+
+provides:
+  commands:
+    - name: "speckit.brand.foundation"
+      file: "commands/brand.md"
+      description: "四阶段品牌策划工作流：文化锚点、名称查重、Slogan 与全案、定稿固化；逐阶段确认，产出 docs/brand/brand.md 与 name-check.md"
+
+tags:
+  - brand
+  - marketing
+  - strategy
+  - product
+  - workflow
