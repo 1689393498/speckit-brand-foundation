@@ -17,10 +17,14 @@
 ### 方式一：从发布压缩包安装（推荐）
 
 ```bash
+# GitHub（主仓库）
 specify extension add --from https://github.com/1689393498/spec-brand-foundation/raw/main/release/brand-foundation-2.0.0.zip
+
+# Gitee（镜像）
+specify extension add --from https://gitee.com/LeisDevelopment/brand-foundation/raw/main/release/brand-foundation-2.0.0.zip
 ```
 
-- GitHub 为主仓库，Gitee 保留镜像；如果仓库迁移，替换为新的 HTTPS 地址。
+- 两个地址内容一致，任选其一。
 - 首次安装会提示 **Untrusted Source**，确认来源可信后输入 `y` 继续。
 - 只支持 HTTPS（本机 `localhost` 调试可用 HTTP）。
 
@@ -231,6 +235,20 @@ brand-foundation/
 - `docs/brand/name-check.md` 并入 `brand.md`，可删除
 - 独立安装的 `speckit-prototype-clarify` 由本扩展的 `/speckit-brand-prototype-clarify` 取代
 - 已有 `prototype/` 会被检测；命令会询问「沿用 / 重建」，不会静默覆盖
+
+## 仓库与同步
+
+| 仓库 | SSH 地址 | 远端名 |
+|---|---|---|
+| GitHub（主仓库） | `git@github.com:1689393498/spec-brand-foundation.git` | `github` |
+| Gitee（镜像） | `git@gitee.com:LeisDevelopment/brand-foundation.git` | `origin` |
+
+```bash
+git push origin main   # Gitee
+git push github main   # GitHub
+```
+
+GitHub 使用 SSH 连接；首次使用需把本机公钥添加到 GitHub 账号。
 
 ## 卸载
 

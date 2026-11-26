@@ -17,10 +17,14 @@ Brand direction lives in the document; concrete colors, type, logo assets, and t
 ### Option 1: Release archive (recommended)
 
 ```bash
+# GitHub (primary)
 specify extension add --from https://github.com/1689393498/spec-brand-foundation/raw/main/release/brand-foundation-2.0.0.zip
+
+# Gitee (mirror)
+specify extension add --from https://gitee.com/LeisDevelopment/brand-foundation/raw/main/release/brand-foundation-2.0.0.zip
 ```
 
-- The project is mirrored on Gitee; if the repository moves, replace the URL with the new HTTPS address.
+- Both URLs serve identical archives; pick either one.
 - The first install prompts **Untrusted Source** — verify the source, then type `y` to continue.
 - HTTPS is required (HTTP is allowed only for `localhost` debugging).
 
@@ -231,6 +235,20 @@ brand-foundation/
 - `docs/brand/name-check.md` merges into `brand.md` and can be deleted
 - A separately installed `speckit-prototype-clarify` is replaced by `/speckit-brand-prototype-clarify`
 - Existing `prototype/` is detected; the command asks whether to extend or rebuild and never overwrites silently
+
+## Repositories & Sync
+
+| Repository | SSH URL | Remote |
+|---|---|---|
+| GitHub (primary) | `git@github.com:1689393498/spec-brand-foundation.git` | `github` |
+| Gitee (mirror) | `git@gitee.com:LeisDevelopment/brand-foundation.git` | `origin` |
+
+```bash
+git push origin main   # Gitee
+git push github main   # GitHub
+```
+
+GitHub is connected over SSH; add your local public key to your GitHub account before the first push.
 
 ## Uninstall
 

@@ -13,6 +13,7 @@
 - 原型行为与状态澄清并入本扩展，改名 `/speckit-brand-prototype-clarify`，直接修改原型。
 - `plan.md` 交给原生 `/speckit-plan`，扩展不再产出。
 - 移除 `speckit.brand.foundation` 命令。
+- README 补充 GitHub 与 Gitee 双仓库安装地址与 SSH 同步说明。
 
 ## 1.1.0 - 2026-11-25
 
