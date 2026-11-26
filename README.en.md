@@ -18,10 +18,10 @@ Brand direction lives in the document; concrete colors, type, logo assets, and t
 
 ```bash
 # GitHub (primary)
-specify extension add --from https://github.com/1689393498/spec-brand-foundation/raw/main/release/brand-foundation-2.0.0.zip
+specify extension add --from https://github.com/1689393498/speckit-brand-foundation/raw/main/release/brand-foundation-2.0.0.zip
 
 # Gitee (mirror)
-specify extension add --from https://gitee.com/LeisDevelopment/brand-foundation/raw/main/release/brand-foundation-2.0.0.zip
+specify extension add --from https://gitee.com/LeisDevelopment/speckit-brand-foundation/raw/main/release/brand-foundation-2.0.0.zip
 ```
 
 - Both URLs serve identical archives; pick either one.
@@ -240,8 +240,8 @@ brand-foundation/
 
 | Repository | SSH URL | Remote |
 |---|---|---|
-| GitHub (primary) | `git@github.com:1689393498/spec-brand-foundation.git` | `github` |
-| Gitee (mirror) | `git@gitee.com:LeisDevelopment/brand-foundation.git` | `origin` |
+| GitHub (primary) | `git@github.com:1689393498/speckit-brand-foundation.git` | `github` |
+| Gitee (mirror) | `git@gitee.com:LeisDevelopment/speckit-brand-foundation.git` | `origin` |
 
 ```bash
 git push origin main   # Gitee

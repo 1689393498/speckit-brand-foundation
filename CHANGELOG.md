@@ -14,6 +14,7 @@
 - `plan.md` 交给原生 `/speckit-plan`，扩展不再产出。
 - 移除 `speckit.brand.foundation` 命令。
 - README 补充 GitHub 与 Gitee 双仓库安装地址与 SSH 同步说明。
+- 仓库统一更名为 `speckit-brand-foundation`，GitHub 与 Gitee 一致。
 
 ## 1.1.0 - 2026-11-25
 

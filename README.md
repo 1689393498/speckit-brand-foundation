@@ -18,10 +18,10 @@
 
 ```bash
 # GitHub（主仓库）
-specify extension add --from https://github.com/1689393498/spec-brand-foundation/raw/main/release/brand-foundation-2.0.0.zip
+specify extension add --from https://github.com/1689393498/speckit-brand-foundation/raw/main/release/brand-foundation-2.0.0.zip
 
 # Gitee（镜像）
-specify extension add --from https://gitee.com/LeisDevelopment/brand-foundation/raw/main/release/brand-foundation-2.0.0.zip
+specify extension add --from https://gitee.com/LeisDevelopment/speckit-brand-foundation/raw/main/release/brand-foundation-2.0.0.zip
 ```
 
 - 两个地址内容一致，任选其一。
@@ -240,8 +240,8 @@ brand-foundation/
 
 | 仓库 | SSH 地址 | 远端名 |
 |---|---|---|
-| GitHub（主仓库） | `git@github.com:1689393498/spec-brand-foundation.git` | `github` |
-| Gitee（镜像） | `git@gitee.com:LeisDevelopment/brand-foundation.git` | `origin` |
+| GitHub（主仓库） | `git@github.com:1689393498/speckit-brand-foundation.git` | `github` |
+| Gitee（镜像） | `git@gitee.com:LeisDevelopment/speckit-brand-foundation.git` | `origin` |
 
 ```bash
 git push origin main   # Gitee

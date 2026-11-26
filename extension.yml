@@ -8,7 +8,7 @@ extension:
   category: "product"
   effect: "read-write"
   author: "Lei"
-  repository: "https://github.com/1689393498/spec-brand-foundation"
+  repository: "https://github.com/1689393498/speckit-brand-foundation"
   license: MIT
 
 requires:
