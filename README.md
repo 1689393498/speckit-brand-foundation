@@ -1,12 +1,10 @@
-# Brand Foundation Extension
+# Brand Extension
 
 中文 | [English](README.en.md)
 
-**Brand Foundation** 是一个 Spec Kit 扩展，面向已经有 `spec.md`、但还没建立品牌的项目。
+**Brand** 是一个 Spec Kit 扩展。它从 `spec.md` 出发，把品牌工作串成一条完整链路：品牌手册、名称查重、方向澄清，最后产出一个把视觉板、初版 logo/VI 和界面原型合在一起的页面。
 
-它把品牌策划拆成四个可确认的阶段：定位与锚点、名称与查重、Slogan 与全案、固化与交付。它不生成 logo 或 VI，而是产出品牌地基文档：给谁、为什么选这个名字、怎么说、视觉和语言的方向与底线。
-
-名称和 Slogan 始终由人拍板；查重无法联网时会标注「需人工核实」，不编造结果。
+品牌方向由文档承载，具体色值、字体、logo 资产和原型由 `prototype` 阶段落地。名称、Slogan、锚点和视觉方向始终由人拍板；查重无法联网时标注「需人工核实」，不编造结果。
 
 ## 前置条件
 
@@ -19,7 +17,7 @@
 ### 方式一：从发布压缩包安装（推荐）
 
 ```bash
-specify extension add --from https://github.com/1689393498/spec-brand-foundation/raw/main/release/brand-foundation-1.1.0.zip
+specify extension add --from https://github.com/1689393498/spec-brand-foundation/raw/main/release/brand-foundation-2.0.0.zip
 ```
 
 - GitHub 为主仓库，Gitee 保留镜像；如果仓库迁移，替换为新的 HTTPS 地址。
@@ -33,7 +31,7 @@ specify extension catalog add https://your-host/catalog.json --name my-brand-cat
 specify extension add brand
 ```
 
-`--install-allowed` 只应对你自己拥有并审核过的 catalog 开启。添加后可以用 `specify extension search` 在该 catalog 内搜索。
+`--install-allowed` 只应对你自己拥有并审核过的 catalog 开启。
 
 ### 方式三：本地开发
 
@@ -50,54 +48,135 @@ specify extension info brand --json
 
 ## 使用
 
-在 Claude Code 中（skills 模式）：
+在 Claude Code 中（skills 模式），默认跑完整流程：
 
 ```text
-/speckit-brand-foundation
+/speckit-brand-run
 ```
 
-也可以带可选补充信息：
+也可以只跑其中一段：
+
+| 命令 | 作用 |
+|---|---|
+| `/speckit-brand-run` | 全流程，按顺序执行并逐决策点停下 |
+| `/speckit-brand-create` | 只生成或重建 `docs/brand/brand.md` |
+| `/speckit-brand-name-check` | 只做名称查重，结果写入 `brand.md` |
+| `/speckit-brand-clarify` | 只做品牌方向澄清 |
+| `/speckit-brand-prototype` | 只做视觉板、初版 logo/VI 和原型合成页 |
+| `/speckit-brand-prototype-clarify` | 只做原型行为与状态澄清 |
+
+> Spec Kit 要求命令名为 `speckit.{extension}.{command}` 三段式，因此默认入口是 `/speckit-brand-run`，没有单独的 `/speckit-brand`。
+
+可选补充信息可以直接跟在命令后面：
 
 ```text
-/speckit-brand-foundation 偏专业感，不做可爱风，可能兼顾 B 端
+/speckit-brand-run 偏专业感，不做可爱风，可能兼顾 B 端
 ```
-
-其他集成使用各自的调用语法。
 
 ### 语言
 
 所有提问、阶段汇报和产出文档自动跟随 `spec.md` 的语言；也可以在调用时显式指定：
 
 ```text
-/speckit-brand-foundation 请用英文输出
+/speckit-brand-run 请用英文输出
 ```
 
 命令提示词本身是英文，便于国际用户阅读与贡献，不影响中文交互。
 
-## 四个阶段
+## 流程
 
-| 阶段 | 内容 | 是否需要你确认 |
-|---|---|---|
-| 1. 定位与锚点 | 提炼人群画像，提出澄清问题；给出 2～3 个文化锚点候选和品牌名草案 | 选定锚点 |
-| 2. 名称与查重 | 生成 3～5 个名称候选，逐项查 App Store / 域名 / 公开搜索 / 品牌冲突风险 | 选定名称 |
-| 3. Slogan 与全案 | 主推 1 句 + 备选 2 句；按「人群 → 内核 → 视觉 → 语言 → 落地原则」推导 brand.md 草稿 | 选定 Slogan、提修改意见 |
-| 4. 固化与交付 | 按意见修改，删除未选备选，检查推导链，写入定稿 | 确认交付 |
+```text
+spec.md
+  │  /speckit-brand-create
+  ▼
+docs/brand/brand.md                项目背景、人群、定位与锚点、命名、Slogan、方向
+  │  /speckit-brand-name-check
+  ▼
+定名（查重结果写回 brand.md）
+  │  /speckit-brand-clarify
+  ▼
+brand.md 定稿
+  │  /speckit-brand-prototype
+  ▼
+A：视觉板 + 初版 logo/VI
+  │
+  ▼
+B：按 A 设计的界面原型
+  │
+  ▼
+prototype/index.html               上：简介 + A；下：B
+  │  一次性人工检查，改 B 的同时改 A
+  ▼
+/speckit-brand-prototype-clarify   行为与状态澄清，改 B
+  │
+  ▼
+/speckit-plan（原生）              specs/<feature>/plan.md
+```
+
+### 各阶段停下确认的点
+
+| 阶段 | 需要你确认 |
+|---|---|
+| create | 项目一页纸、人群画像、文化锚点、名称、Slogan |
+| name-check | 查重结果与最终名称 |
+| clarify | 每轮最多 5 个问题 |
+| prototype | 合成页一次性检查：视觉板、logo/VI、原型一起看 |
+| prototype-clarify | 每轮最多 5 个问题 |
+
+`/speckit-brand-run` 的「默认全流程」指顺序执行，不是替你拍板。每个决策点都会停下。
 
 ## 产出物
 
 ```text
 docs/brand/
-├── name-check.md   # 阶段 2：名称查重报告（含证据、风险等级与免责声明）
-└── brand.md        # 阶段 4：唯一确定的品牌方案
+├── brand.md                  # 唯一品牌文字源（查重结果与决策记录都在里面）
+├── tokens.css                # 色值、字体、字号、间距、圆角，开发直接引用
+└── assets/
+    ├── logo/
+    │   ├── logo-horizontal.svg
+    │   ├── logo-stacked.svg
+    │   ├── mark.svg
+    │   ├── logo-mono.svg
+    │   └── logo-inverse.svg
+    └── app-icon.svg
+
+prototype/
+├── index.html                # 上：项目简介 + 视觉板；下：界面原型
+├── styles.css                # 引用 ../docs/brand/tokens.css
+├── app.js
+└── README.md
 ```
+
+- 不再产出单独的 `name-check.md`；查重结论、证据、风险等级并入 `brand.md` 的「命名」一节。
+- 不产出 `plan.md`；下一步使用原生 `/speckit-plan`。
+
+## 初版 logo 与 VI
+
+`prototype` 阶段会从 `brand.md` 推出视觉板，并默认附带一版 logo 和基础 VI：
+
+- 字标（横版、竖版）、一个简单图形标、单色与反白变体、App 图标
+- 安全空间、最小尺寸、背景限制、禁用示例
+- 按产品类型选 2～3 个应用示例
+- 全部为可编辑 SVG；字体只用开源可嵌入字体
+
+边界：
+
+- 只给一个推荐方向，不做多方案比稿
+- 不做商标图形近似检索；初版 logo 不构成法律意见，正式使用前请专业检索
+- 不用 AI 生成的位图 logo
+- 不做印刷交付（CMYK、出血、刀版），不做完整品牌手册 PDF
+- 不做独立 VI 手册；视觉板是初版，不是已交付的完整视觉系统
+
+如果项目里已有 logo，命令会先检测 `docs/brand/assets/logo/`，沿用现有资产并补规则，不重造。
 
 ## 边界
 
 - 只读 `spec.md` 与项目已有文档，不修改 `spec.md`
-- 不做视觉执行（logo、VI、物料、投放），只输出品牌方向与原则
+- 名称、Slogan、锚点、视觉方向由人决定
 - 查重无法联网时逐项标注「需人工核实」，不编造结果
-- 查重结果不构成法律意见，正式注册前请咨询专业机构
-- 产出物固定在 `docs/brand/` 下
+- `brand.md` 只写方向，不写色值、字号；具体取值落在 `tokens.css`
+- 产出只在 `docs/brand/` 和 `prototype/`
+- 品牌工作止于原型与视觉板；工程计划交给原生 `/speckit-plan`
 
 ## 发布与版本
 
@@ -110,8 +189,8 @@ python scripts/package.py
 产出：
 
 ```text
-dist/brand-foundation-1.0.0.zip
-dist/brand-foundation-1.0.0.zip.sha256
+dist/brand-foundation-2.0.0.zip
+dist/brand-foundation-2.0.0.zip.sha256
 ```
 
 把 zip 上传到任意 HTTPS 地址即可分发；SHA-256 可用于自建 catalog 或用户校验。
@@ -128,7 +207,12 @@ dist/brand-foundation-1.0.0.zip.sha256
 brand-foundation/
 ├── extension.yml
 ├── commands/
-│   └── brand.md
+│   ├── brand-run.md                  # speckit.brand.run
+│   ├── brand-create.md               # speckit.brand.create
+│   ├── brand-name-check.md           # speckit.brand.name-check
+│   ├── brand-clarify.md              # speckit.brand.clarify
+│   ├── brand-prototype.md            # speckit.brand.prototype
+│   └── brand-prototype-clarify.md    # speckit.brand.prototype-clarify
 ├── scripts/
 │   └── package.py
 ├── README.md        # 中文
@@ -138,6 +222,15 @@ brand-foundation/
 ├── release/         # 已提交的发布归档，供 --from 下载
 └── dist/            # 本地打包产物，不提交
 ```
+
+## 从 1.x 升级
+
+2.0.0 是破坏性重构：
+
+- `speckit.brand.foundation` 移除，改用 `/speckit-brand-run` 及其子命令
+- `docs/brand/name-check.md` 并入 `brand.md`，可删除
+- 独立安装的 `speckit-prototype-clarify` 由本扩展的 `/speckit-brand-prototype-clarify` 取代
+- 已有 `prototype/` 会被检测；命令会询问「沿用 / 重建」，不会静默覆盖
 
 ## 卸载
 

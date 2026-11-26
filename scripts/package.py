@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a distributable Brand Foundation extension archive.
+"""Build a distributable Brand extension archive.
 
 Usage:
     python scripts/package.py

@@ -2,9 +2,9 @@ schema_version: "1.0"
 
 extension:
   id: brand
-  name: "Brand Foundation"
-  version: "1.1.0"
-  description: "Four-stage brand planning from spec.md: cultural anchors, name screening, slogan & full plan, finalization. Produces brand.md and a name-check report. 四阶段品牌策划：文化锚点、名称查重、Slogan 与全案、定稿固化。"
+  name: "Brand"
+  version: "2.0.0"
+  description: "End-to-end brand workflow from spec.md: brand.md, name screening, brand clarification, then a combined prototype and initial visual identity page. 从 spec.md 到品牌文档、查重、澄清与原型/视觉交付的完整工作流。"
   category: "product"
   effect: "read-write"
   author: "Lei"
@@ -16,13 +16,30 @@ requires:
 
 provides:
   commands:
-    - name: "speckit.brand.foundation"
-      file: "commands/brand.md"
-      description: "Four-stage brand planning workflow with human confirmation at every stage: cultural anchors, name screening, slogan & full plan, finalization. Produces docs/brand/brand.md and name-check.md. 四阶段品牌策划工作流，逐阶段确认。"
+    - name: "speckit.brand.run"
+      file: "commands/brand-run.md"
+      description: "Run the full brand workflow end to end: brand.md, name screening, brand clarification, then a combined prototype and initial visual identity page. Stops at every human decision. 端到端品牌工作流，逐决策点确认。"
+    - name: "speckit.brand.create"
+      file: "commands/brand-create.md"
+      description: "Build or rebuild docs/brand/brand.md from spec.md: project brief, audience, positioning and anchors, naming, slogan, visual and verbal direction. 从 spec.md 生成品牌手册草稿。"
+    - name: "speckit.brand.name-check"
+      file: "commands/brand-name-check.md"
+      description: "Screen shortlisted brand names against app stores, domains, public search, and preliminary trademark risk; results are written into brand.md. 独立名称查重，结果写入 brand.md。"
+    - name: "speckit.brand.clarify"
+      file: "commands/brand-clarify.md"
+      description: "Ask up to five targeted questions to remove ambiguity in brand.md, then apply the answers back into the document. 品牌方向层澄清。"
+    - name: "speckit.brand.prototype"
+      file: "commands/brand-prototype.md"
+      description: "Derive a visual board and initial logo/VI from brand.md, design the product prototype from it, and assemble one combined page for a single review. 视觉板、初版 logo/VI 与界面原型合成页。"
+    - name: "speckit.brand.prototype-clarify"
+      file: "commands/brand-prototype-clarify.md"
+      description: "Ask up to five targeted questions about prototype behavior, states, flows, and boundaries, then apply the answers to the prototype. 原型行为与状态澄清。"
 
 tags:
   - brand
+  - naming
+  - prototype
+  - visual-identity
   - marketing
-  - strategy
   - product
   - workflow
