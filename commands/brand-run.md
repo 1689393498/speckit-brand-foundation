@@ -1,5 +1,5 @@
 ---
-description: "Run the full brand workflow from spec.md end to end: brand.md, name screening, brand clarification, then a combined prototype and visual identity page. Stops at every human decision."
+description: "Run the full brand workflow from the project's specs end to end: brand.md, name screening, brand clarification, then a combined prototype and visual identity page. Stops at every human decision."
 argument-hint: "Optional: brand background, preferences, tones to avoid, or the stage to resume from"
 ---
 
@@ -15,9 +15,9 @@ Run the complete brand workflow in order. This command orchestrates five stage c
 
 ## Language
 
-- Write everything I see — questions, stage summaries, and generated documents — in the same language as `spec.md`.
+- `speckit-brand-create` confirms the source set and its language before the first stage. Use that language for questions, stage summaries, and generated documents.
 - If my input asks for a different output language, follow that request instead.
-- Never default to English when `spec.md` is written in another language.
+- Never default to English when the sources are written in another language.
 
 ## User Input
 
@@ -30,11 +30,9 @@ Optional context (brand background, preferences, tones to avoid, or a stage to r
 ## Prerequisites
 
 - The project is a Spec Kit project (`.specify/` exists).
-- `spec.md` exists. Locate it in this order:
-  1. Read `feature_directory` from `.specify/feature.json` and check for `spec.md` in that directory
-  2. Otherwise, take the most recently modified `specs/*/spec.md`
-  3. If neither exists, tell me "No spec.md found. Please run `/speckit-specify` first." and stop
-- Read `spec.md` and existing project docs only; never modify `spec.md`.
+- At least one spec exists at `specs/*/spec.md`.
+- `speckit-brand-create` resolves and confirms the source set once, at the start of stage 1. Do not resolve specs here, and do not follow `.specify/feature.json` independently; after that, every stage reads section 0, "Sources", of `brand.md`.
+- Read the confirmed sources and existing project docs only; never modify any `spec.md`.
 
 ## State Check (once, before any stage)
 
@@ -67,7 +65,7 @@ Do not paraphrase a stage from memory. Either invoke it or read its file.
 
 ### 1. Create
 
-Invoke `speckit-brand-create`. It stops for my confirmation at the anchor, the name, and the slogan, and writes `docs/brand/brand.md` progressively. At the naming stage it calls `speckit-brand-name-check`.
+Invoke `speckit-brand-create`. It first resolves the source set — asking me to confirm it when the project has more than one spec — then stops for my confirmation at the anchor, the name, and the slogan, and writes `docs/brand/brand.md` progressively. At the naming stage it calls `speckit-brand-name-check`.
 
 Wait for it to finish before continuing. If it stopped because I did not answer, wait for me — do not proceed.
 
@@ -109,6 +107,7 @@ Tell me the next step is `/speckit-plan` (native Spec Kit), and that it should t
 
 Stop and wait for me at each of these decisions:
 
+- Source set, when `specs/` contains more than one spec
 - Project brief
 - Audience profiles
 - Cultural anchor
@@ -120,7 +119,7 @@ Never decide these alone. "Full workflow" means sequential execution, not autono
 
 ## Boundaries
 
-- Never modify `spec.md`.
+- Never modify any `spec.md`.
 - Write only under `docs/brand/` and `prototype/`.
 - Do not create `docs/brand/name-check.md`; screening results live in `brand.md`.
 - Do not create `plan.md`; that is native Spec Kit.

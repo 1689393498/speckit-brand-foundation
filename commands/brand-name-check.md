@@ -9,7 +9,7 @@ Screen the shortlisted names and write the evidence into `docs/brand/brand.md`. 
 
 ## Language
 
-- Write questions, summaries, and document content in the same language as `spec.md`.
+- Write questions, summaries, and document content in the language recorded in `brand.md` section 0, "Sources". If `brand.md` does not exist yet, use the language of the `current` spec.
 - If my input asks for another language, follow it.
 
 ## User Input
@@ -23,7 +23,8 @@ Optional: names to screen, target market, industry keywords. If names are provid
 ## Inputs
 
 1. `docs/brand/brand.md` — section 4, "Naming", contains the finalists. If the section is missing, ask me for the names and the target market.
-2. `spec.md` — for the product category, audience, and target markets. Locate it via `.specify/feature.json`, then the newest `specs/*/spec.md`.
+2. The spec set recorded in `brand.md` section 0, "Sources" — for the product category, audience, and target markets. Read exactly those files; do not resolve specs independently.
+   - If `brand.md` or its Sources section is missing (standalone use or an older document), resolve once via `.specify/feature.json` then `specs/*/spec.md`, and report which files were used.
 3. If neither names nor `brand.md` exist, ask for:
    - The names
    - What the product is and who it serves
@@ -81,7 +82,7 @@ After the table is written:
 
 ## Boundaries
 
-- Never modify `spec.md`.
+- Never modify any `spec.md`.
 - Never write outside `docs/brand/brand.md`.
 - Never present a risk level without evidence or an explicit "needs manual verification" marker.
 - Screening is preliminary and is not legal advice.

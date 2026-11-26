@@ -2,14 +2,14 @@
 
 [中文](README.md) | English
 
-**Brand** is a Spec Kit extension. It starts from `spec.md` and runs the brand work as one chain: brand manual, name screening, brand clarification, and finally a single page that combines the visual board, initial logo/VI, and product prototype.
+**Brand** is a Spec Kit extension. It starts from the project's `specs/` and runs the brand work as one chain: brand manual, name screening, brand clarification, and finally a single page that combines the visual board, initial logo/VI, and product prototype. Brand is a project-level asset, so a project gets one `brand.md`.
 
 Brand direction lives in the document; concrete colors, type, logo assets, and the prototype are produced by the prototype stage. Names, slogans, cultural anchors, and visual direction are always decided by a human. When name checks cannot reach the internet, items are marked "needs manual verification" instead of fabricating results.
 
 ## Prerequisites
 
 - An initialized Spec Kit project (`.specify/` exists)
-- `/speckit-specify` completed, with `spec.md` in the project
+- `/speckit-specify` completed, with at least one `spec.md` under `specs/`
 - Spec Kit `>= 1.4.0`
 
 ## Installation
@@ -18,10 +18,10 @@ Brand direction lives in the document; concrete colors, type, logo assets, and t
 
 ```bash
 # GitHub (primary)
-specify extension add --from https://github.com/1689393498/speckit-brand-foundation/raw/main/release/brand-foundation-2.0.0.zip
+specify extension add --from https://github.com/1689393498/speckit-brand-foundation/raw/main/release/brand-foundation-2.1.0.zip
 
 # Gitee (mirror)
-specify extension add --from https://gitee.com/LeisDevelopment/speckit-brand-foundation/raw/main/release/brand-foundation-2.0.0.zip
+specify extension add --from https://gitee.com/LeisDevelopment/speckit-brand-foundation/raw/main/release/brand-foundation-2.1.0.zip
 ```
 
 - Both URLs serve identical archives; pick either one.
@@ -79,7 +79,7 @@ Optional guidance can be appended:
 
 ### Language
 
-All questions, stage summaries, and generated documents follow the language of `spec.md` automatically. You can also request a language explicitly:
+All questions, stage summaries, and generated documents follow the language of the source specs automatically; if they mix languages, you confirm once. You can also request a language explicitly:
 
 ```text
 /speckit-brand-run please write everything in English
@@ -87,13 +87,22 @@ All questions, stage summaries, and generated documents follow the language of `
 
 The command prompts are written in English so international users and contributors can read and extend them.
 
+### Multiple specs and source confirmation
+
+A project usually has several `specs/<feature>/spec.md` files. Brand is a project-level asset, so `brand.md` stays a single document:
+
+- On the first `/speckit-brand-create` or `/speckit-brand-run`, the extension lists every spec (directory, title, last modified, whether it is the current feature) and asks which ones the brand should derive from.
+- The whole project is included by default; you can exclude specs for internal refactors or pure maintenance.
+- The confirmed set is written to section 0, "Sources", of `brand.md`. Clarify, name-check, and prototype read that list only, so they do not drift when `feature.json` changes.
+- When specs are added or removed later, commands flag it but never change the source scope on their own.
+
 ## Flow
 
 ```text
-spec.md
+specs/*/spec.md (confirmed source set)
   │  /speckit-brand-create
   ▼
-docs/brand/brand.md                brief, audience, positioning and anchors, naming, slogan, direction
+docs/brand/brand.md                sources, brief, audience, positioning and anchors, naming, slogan, direction
   │  /speckit-brand-name-check
   ▼
 final name (screening written back into brand.md)
@@ -121,7 +130,7 @@ prototype/index.html               top: brief + A; bottom: B
 
 | Stage | Your decision |
 |---|---|
-| create | Project brief, audience, cultural anchor, name, slogan |
+| create | Source scope (when there are multiple specs), project brief, audience, cultural anchor, name, slogan |
 | name-check | Screening result and final name |
 | clarify | Up to 5 questions per round |
 | prototype | One review of the combined page: visual board, logo/VI, and prototype together |
@@ -133,7 +142,7 @@ prototype/index.html               top: brief + A; bottom: B
 
 ```text
 docs/brand/
-├── brand.md                  # Single source of brand text; screening and decision log included
+├── brand.md                  # Single source of brand text; sources, screening, and decision log included
 ├── tokens.css                # Colors, type, scale, spacing, radii; used by development
 └── assets/
     ├── logo/
@@ -175,7 +184,7 @@ If the project already has a logo, the command checks `docs/brand/assets/logo/`,
 
 ## Boundaries
 
-- Reads `spec.md` and existing project docs; never modifies `spec.md`
+- Reads the confirmed specs and existing project docs; never modifies any `spec.md`
 - Names, slogans, anchors, and visual direction are decided by a human
 - When screening cannot reach the internet, each item is marked "needs manual verification"; results are never fabricated
 - `brand.md` stays directional; concrete values live in `tokens.css`
@@ -193,8 +202,8 @@ python scripts/package.py
 Produces:
 
 ```text
-dist/brand-foundation-2.0.0.zip
-dist/brand-foundation-2.0.0.zip.sha256
+dist/brand-foundation-2.1.0.zip
+dist/brand-foundation-2.1.0.zip.sha256
 ```
 
 Upload the zip to any HTTPS host to distribute it; the SHA-256 can be used for self-hosted catalogs or user verification.
@@ -235,6 +244,10 @@ brand-foundation/
 - `docs/brand/name-check.md` merges into `brand.md` and can be deleted
 - A separately installed `speckit-prototype-clarify` is replaced by `/speckit-brand-prototype-clarify`
 - Existing `prototype/` is detected; the command asks whether to extend or rebuild and never overwrites silently
+
+### Upgrading from 2.0.0
+
+2.1.0 is non-breaking; an existing `brand.md` keeps working. On the next run of any command, if section 0, "Sources", is missing, it falls back once to the old spec resolution, then offers to write the source list.
 
 ## Repositories & Sync
 

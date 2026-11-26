@@ -11,7 +11,7 @@ Do not review typography, color, contrast, copy tone, or brand derivation. Those
 
 ## Language
 
-- Use the language of `brand.md` and `spec.md`.
+- Use the language recorded in `brand.md` section 0, "Sources".
 - Quote prototype text as written.
 
 ## User Input
@@ -25,10 +25,11 @@ Optional focus area. If present, scan there first but still check the flows it t
 ## Inputs
 
 1. `prototype/` — read `index.html`, `styles.css`, `app.js`, `README.md`, and `screens/manifest.json` if present.
-2. `spec.md` — product facts. Locate it via `.specify/feature.json`, then the newest `specs/*/spec.md`.
+2. The spec set recorded in `brand.md` section 0, "Sources" — product facts. Read exactly those files; do not resolve specs independently.
+   - If `brand.md` or its Sources section is missing, resolve once via `.specify/feature.json` then `specs/*/spec.md`, and report which files were used.
 3. `docs/brand/brand.md` — optional. Use it only to check whether product-facing claims match; do not audit brand direction.
 4. `docs/brand/tokens.css` — read-only reference for what the prototype should be using.
-5. Read-only: never modify `spec.md`, `brand.md`, `tokens.css`, or logo assets.
+5. Read-only: never modify any `spec.md`, `brand.md`, `tokens.css`, or logo assets.
 
 ## Scan
 
@@ -38,7 +39,7 @@ Look for issues in these categories, ranked by impact × uncertainty:
 2. **Same label, different behavior** — or different labels doing the same thing.
 3. **Hardcoded demo state** — the selected item does not match what the next screen shows.
 4. **Missing states** — loading, empty, error, permission denied, complete, disabled.
-5. **Product fact conflicts** — defaults, online/offline behavior, parallelism, persistence, limits that contradict `spec.md`.
+5. **Product fact conflicts** — defaults, online/offline behavior, parallelism, persistence, limits that contradict the recorded sources.
 6. **Static vs operable boundary** — which screens are illustrations and which controls must actually work.
 7. **Navigation, back, interruption** — where back goes, what happens mid-flow, what survives a cancel.
 8. **Data and privacy behavior** — what is saved, sent, exported, or cleared.
@@ -74,7 +75,7 @@ After the question loop:
 5. Report the files changed and a short table: ID, question, decision, effect.
 6. List any unresolved items.
 
-Do not produce a long report. Do not modify `brand.md`, `spec.md`, `tokens.css`, or logo assets.
+Do not produce a long report. Do not modify `brand.md`, any `spec.md`, `tokens.css`, or logo assets.
 
 ## Boundaries
 
@@ -82,7 +83,7 @@ Do not produce a long report. Do not modify `brand.md`, `spec.md`, `tokens.css`,
 - No font, color, contrast, copy-tone, or brand-direction review.
 - At most five questions per run.
 - Never change the brand direction; send those issues to `speckit-brand-clarify`.
-- Never fabricate prototype behavior that conflicts with `spec.md`.
+- Never fabricate prototype behavior that conflicts with the recorded sources.
 
 ## Completion
 

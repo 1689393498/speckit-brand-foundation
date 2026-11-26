@@ -9,7 +9,7 @@ Remove ambiguity from `docs/brand/brand.md` by asking the smallest useful set of
 
 ## Language
 
-- Use the language of `brand.md` and `spec.md` for questions, tables, and edits.
+- Use the language recorded in `brand.md` section 0, "Sources", for questions, tables, and edits.
 - Quote existing document text as written.
 
 ## User Input
@@ -23,7 +23,10 @@ Optional focus areas. If present, prioritize them; still scan the whole document
 ## Inputs
 
 1. `docs/brand/brand.md` — required. If missing, tell me to run `speckit-brand-create` first and stop.
-2. `spec.md` — for product facts and scope. Locate it via `.specify/feature.json`, then the newest `specs/*/spec.md`.
+2. The spec set recorded in `brand.md` section 0, "Sources" — for product facts and scope. Read exactly those files; do not resolve specs independently and do not follow `.specify/feature.json` if it points elsewhere.
+   - If section 0 is missing (an older `brand.md`), fall back once to `.specify/feature.json` then `specs/*/spec.md`, report which files were used, and offer to write section 0.
+   - If a recorded file no longer exists, report it and ask; do not substitute silently.
+   - If unrecorded `specs/*/spec.md` files exist, mention them once; do not include them without my confirmation.
 3. Optional, if they exist:
    - `docs/brand/tokens.css`
    - `docs/brand/assets/logo/`
@@ -35,7 +38,7 @@ Optional focus areas. If present, prioritize them; still scan the whole document
 Mark each area **Clear / Partial / Missing**, then pick the highest impact × uncertainty:
 
 1. **Audience specificity** — are profiles concrete enough to make decisions from, or still labels?
-2. **Positioning vs spec** — does the one-line positioning contradict `spec.md`, promise something the product does not do, or add scope?
+2. **Positioning vs sources** — does the one-line positioning contradict the recorded sources, promise something the product does not do, or add scope?
 3. **Naming** — is the name settled? Is pronunciation, meaning, or cross-language risk unresolved? Does the name still match the audience and anchor?
 4. **Slogan vs core** — does the slogan promise something the brand core refuses, or use tone the language direction bans?
 5. **Visual direction traceability** — can each image, color tendency, and type choice be traced to the brand core? Are exclusions explicit?
@@ -82,8 +85,8 @@ Report mismatches as observations. Do not edit the prototype, tokens, or logo. R
 
 ## Boundaries
 
-- Never modify `spec.md`.
-- Never edit `tokens.css`, logo assets, or `prototype/`; this command only touches `brand.md`.
+- Never modify any `spec.md`.
+- Never edit `tokens.css`, logo assets, or `prototype/`; this command touches `brand.md` only, plus section 0 when recording a source-set change I confirmed.
 - At most five questions per run.
 - No long report, no invented answers, no self-answered questions.
 - If there is no critical ambiguity, say so plainly and stop.

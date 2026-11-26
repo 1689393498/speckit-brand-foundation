@@ -11,7 +11,7 @@ Order matters: derive the visual board first, design the prototype from it, then
 
 ## Language
 
-- Use the language of `brand.md` and `spec.md` for all copy, labels, questions, and the page.
+- Use the language recorded in `brand.md` section 0, "Sources", for all copy, labels, questions, and the page.
 - Use the product's real language for interface copy; do not translate product names.
 
 ## User Input
@@ -25,8 +25,10 @@ Optional: scope, copy source, canvas, or "no logo/VI". Fold it in and skip the m
 ## Prerequisites
 
 - `docs/brand/brand.md` exists and has sections 2–8. If it is missing or incomplete, tell me to run `speckit-brand-create` first and stop.
-- `spec.md` exists. Locate it via `.specify/feature.json`, then the newest `specs/*/spec.md`.
-- Read `brand.md` and `spec.md`; never modify either.
+- The spec set recorded in `brand.md` section 0, "Sources" exists. Read exactly those files; do not resolve specs independently and do not follow `.specify/feature.json` if it points elsewhere.
+  - If section 0 is missing (an older `brand.md`), fall back once to `.specify/feature.json` then `specs/*/spec.md`, report which files were used, and offer to write section 0.
+  - If a recorded file no longer exists, report it and ask; do not substitute silently.
+- Read `brand.md` and the recorded sources; never modify either.
 
 ## Existing Work
 
@@ -43,8 +45,8 @@ If any exist, ask whether to **extend**, **rebuild**, or **keep** each part. Nev
 
 Ask at most three groups in one screen, then continue:
 
-1. **Scope** — propose the flows and screens derived from `spec.md` (for example: onboarding, core task, result, settings). Ask me to confirm, cut, or add.
-2. **Content and canvas** — real copy from `spec.md`, or clearly marked placeholder copy; canvas size (mobile 390×844, web 1440×900, or as the product requires).
+1. **Scope** — propose the flows and screens derived from the recorded sources (for example: onboarding, core task, result, settings). Ask me to confirm, cut, or add.
+2. **Content and canvas** — real copy from the recorded sources, or clearly marked placeholder copy; canvas size (mobile 390×844, web 1440×900, or as the product requires).
 3. **Initial logo/VI** — include a first version of the logo and basic VI? Default yes. If an existing logo is found, say so and ask whether to keep it. Accept "no" and skip the logo/VI part of the visual board, while still producing colors, type, spacing, and components.
 
 ## Phase A: Visual Standard
@@ -111,7 +113,7 @@ Design the confirmed screens from the visual standard:
 - Build with plain HTML/CSS/JS. No build step.
 - Make interactions real where they matter: navigation, tabs, toggles, steppers, sheets, state changes. No clickable controls that do nothing.
 - Cover meaningful states: loading, empty, error, disabled, complete. If a state is out of scope, mark it as out of scope.
-- Use real copy from `spec.md`; mark placeholders clearly.
+- Use real copy from the recorded sources; mark placeholders clearly.
 - Accessibility: visible focus, labels, keyboard operation for interactive controls, sufficient contrast.
 - The board should read as one system: consistent spacing, one accent use per screen, no decorative noise.
 
@@ -152,7 +154,7 @@ Do not ask for separate approval of the visual board and the prototype. Do not s
 
 ## Boundaries
 
-- Never modify `brand.md` or `spec.md`.
+- Never modify `brand.md` or any `spec.md`.
 - Write only `docs/brand/tokens.css`, `docs/brand/assets/`, and `prototype/`.
 - No raster or AI-generated logo art; no trademark clearance; no print files, CMYK, bleed, or packaging production files.
 - No full VI manual; this is an initial board, not a delivered identity system.

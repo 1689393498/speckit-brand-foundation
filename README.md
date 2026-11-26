@@ -2,14 +2,14 @@
 
 中文 | [English](README.en.md)
 
-**Brand** 是一个 Spec Kit 扩展。它从 `spec.md` 出发，把品牌工作串成一条完整链路：品牌手册、名称查重、方向澄清，最后产出一个把视觉板、初版 logo/VI 和界面原型合在一起的页面。
+**Brand** 是一个 Spec Kit 扩展。它从项目的 `specs/` 出发，把品牌工作串成一条完整链路：品牌手册、名称查重、方向澄清，最后产出一个把视觉板、初版 logo/VI 和界面原型合在一起的页面。品牌是项目级资产，一个项目只产出一份 `brand.md`。
 
 品牌方向由文档承载，具体色值、字体、logo 资产和原型由 `prototype` 阶段落地。名称、Slogan、锚点和视觉方向始终由人拍板；查重无法联网时标注「需人工核实」，不编造结果。
 
 ## 前置条件
 
 - 已初始化的 Spec Kit 项目（存在 `.specify/`）
-- 已完成 `/speckit-specify`，项目内有 `spec.md`
+- 已完成 `/speckit-specify`，`specs/` 下至少有 1 份 `spec.md`
 - Spec Kit `>= 1.4.0`
 
 ## 安装
@@ -18,10 +18,10 @@
 
 ```bash
 # GitHub（主仓库）
-specify extension add --from https://github.com/1689393498/speckit-brand-foundation/raw/main/release/brand-foundation-2.0.0.zip
+specify extension add --from https://github.com/1689393498/speckit-brand-foundation/raw/main/release/brand-foundation-2.1.0.zip
 
 # Gitee（镜像）
-specify extension add --from https://gitee.com/LeisDevelopment/speckit-brand-foundation/raw/main/release/brand-foundation-2.0.0.zip
+specify extension add --from https://gitee.com/LeisDevelopment/speckit-brand-foundation/raw/main/release/brand-foundation-2.1.0.zip
 ```
 
 - 两个地址内容一致，任选其一。
@@ -79,7 +79,7 @@ specify extension info brand --json
 
 ### 语言
 
-所有提问、阶段汇报和产出文档自动跟随 `spec.md` 的语言；也可以在调用时显式指定：
+所有提问、阶段汇报和产出文档自动跟随来源 spec 的语言（多份语言不一致时确认一次）；也可以在调用时显式指定：
 
 ```text
 /speckit-brand-run 请用英文输出
@@ -87,13 +87,22 @@ specify extension info brand --json
 
 命令提示词本身是英文，便于国际用户阅读与贡献，不影响中文交互。
 
+### 多 spec 与来源确认
+
+一个项目通常有多个 `specs/<feature>/spec.md`。品牌是项目级资产，`brand.md` 只有一份：
+
+- 首次运行 `/speckit-brand-create` 或 `/speckit-brand-run` 时，扩展会列出所有 spec（目录、标题、修改时间、是否为当前 feature），请你确认品牌依据哪些 spec。
+- 默认纳入整个项目；可以排除内部重构、纯维护类 spec。
+- 确认结果写入 `brand.md` 的第 0 节「来源」；后续澄清、查重、原型只读这份清单，不会因为 `feature.json` 切换而漂移。
+- 之后新增或删除 spec 时，命令会提示，但不会自动改变来源范围。
+
 ## 流程
 
 ```text
-spec.md
+specs/*/spec.md（确认来源集合）
   │  /speckit-brand-create
   ▼
-docs/brand/brand.md                项目背景、人群、定位与锚点、命名、Slogan、方向
+docs/brand/brand.md                来源、项目背景、人群、定位与锚点、命名、Slogan、方向
   │  /speckit-brand-name-check
   ▼
 定名（查重结果写回 brand.md）
@@ -121,7 +130,7 @@ prototype/index.html               上：简介 + A；下：B
 
 | 阶段 | 需要你确认 |
 |---|---|
-| create | 项目一页纸、人群画像、文化锚点、名称、Slogan |
+| create | 来源范围（多 spec 时）、项目一页纸、人群画像、文化锚点、名称、Slogan |
 | name-check | 查重结果与最终名称 |
 | clarify | 每轮最多 5 个问题 |
 | prototype | 合成页一次性检查：视觉板、logo/VI、原型一起看 |
@@ -133,7 +142,7 @@ prototype/index.html               上：简介 + A；下：B
 
 ```text
 docs/brand/
-├── brand.md                  # 唯一品牌文字源（查重结果与决策记录都在里面）
+├── brand.md                  # 唯一品牌文字源（来源清单、查重结果与决策记录都在里面）
 ├── tokens.css                # 色值、字体、字号、间距、圆角，开发直接引用
 └── assets/
     ├── logo/
@@ -175,7 +184,7 @@ prototype/
 
 ## 边界
 
-- 只读 `spec.md` 与项目已有文档，不修改 `spec.md`
+- 只读已确认的 spec 与项目已有文档，不修改任何 `spec.md`
 - 名称、Slogan、锚点、视觉方向由人决定
 - 查重无法联网时逐项标注「需人工核实」，不编造结果
 - `brand.md` 只写方向，不写色值、字号；具体取值落在 `tokens.css`
@@ -193,8 +202,8 @@ python scripts/package.py
 产出：
 
 ```text
-dist/brand-foundation-2.0.0.zip
-dist/brand-foundation-2.0.0.zip.sha256
+dist/brand-foundation-2.1.0.zip
+dist/brand-foundation-2.1.0.zip.sha256
 ```
 
 把 zip 上传到任意 HTTPS 地址即可分发；SHA-256 可用于自建 catalog 或用户校验。
@@ -235,6 +244,10 @@ brand-foundation/
 - `docs/brand/name-check.md` 并入 `brand.md`，可删除
 - 独立安装的 `speckit-prototype-clarify` 由本扩展的 `/speckit-brand-prototype-clarify` 取代
 - 已有 `prototype/` 会被检测；命令会询问「沿用 / 重建」，不会静默覆盖
+
+### 从 2.0.0 升级
+
+2.1.0 不破坏兼容，已有 `brand.md` 可继续使用。首次运行任一命令时，若缺少第 0 节「来源」，会回退一次旧的 spec 定位方式并提示补写；确认后写入来源清单。
 
 ## 仓库与同步
 

@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.1.0 - 2026-11-26
+
+输入来源从单份 `spec.md` 改为项目级 spec 集合，输出路径不变。
+
+- 新增来源发现步骤：`brand-create` 枚举 `specs/*/spec.md`，多份时列出目录、标题、修改时间与当前 feature，由用户确认纳入范围；不再按修改时间静默选择。
+- 确认后的来源清单写入 `brand.md` 新增的第 0 节「来源」，记录路径、状态（current / included / excluded）、输出语言与确认日期。
+- `clarify`、`name-check`、`prototype`、`prototype-clarify` 不再各自解析 `feature.json`，统一读取 `brand.md` 的来源清单；清单缺失时回退一次并提示补写，来源文件被删或新增时只提示、不自动改变范围。
+- 语言规则改为跟随来源集合中的当前 spec；多语言时确认一次并记录。
+- 边界措辞统一为「不修改任何 `spec.md`」。
+- README 增加「多 spec 与来源确认」说明。
+
 ## 2.0.0 - 2026-11-26
 
 破坏性重构，从单一品牌地基命令升级为完整品牌工作流。

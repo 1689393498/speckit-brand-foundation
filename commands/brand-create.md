@@ -1,17 +1,18 @@
 ---
-description: "Build or rebuild docs/brand/brand.md from spec.md: project brief, audience, positioning and cultural anchors, naming, slogan, visual and verbal direction, and execution principles."
+description: "Build or rebuild docs/brand/brand.md from the project's specs: project brief, audience, positioning and cultural anchors, naming, slogan, visual and verbal direction, and execution principles."
 argument-hint: "Optional: brand background, preferences, tones to avoid, an existing name, or mode=continue|rebuild"
 ---
 
 # Brand Create
 
-Build `docs/brand/brand.md` from `spec.md` in six stages. Stop at the anchor, the name, and the slogan; never decide them for me.
+Build `docs/brand/brand.md` from the project's specs in six stages. Stop at the anchor, the name, and the slogan; never decide them for me.
 
 ## Language
 
-- Write everything I see — questions, stage summaries, and the document — in the same language as `spec.md`.
-- If my input asks for a different output language, follow that request.
-- Never default to English when `spec.md` is written in another language.
+- Write everything I see — questions, stage summaries, and the document — in the language of the `current` spec in the confirmed source set.
+- If the source set mixes languages and the current spec is unclear, ask once which language to use; record the answer in Sources.
+- If my input asks for a different output language, follow that request and record it in Sources.
+- Never default to English when the sources are written in another language.
 
 ## User Input
 
@@ -24,11 +25,22 @@ Optional context: brand background, preferences, tones to avoid, an existing nam
 ## Prerequisites
 
 - A Spec Kit project (`.specify/` exists).
-- `spec.md` exists. Locate it in this order:
-  1. `feature_directory` from `.specify/feature.json` + `spec.md`
-  2. The most recently modified `specs/*/spec.md`
-  3. If neither exists, tell me "No spec.md found. Please run `/speckit-specify` first." and stop
-- Read `spec.md` and existing project docs only; never modify `spec.md`.
+- At least one spec at `specs/*/spec.md`.
+
+Resolve the source set once, before any stage:
+
+1. List every `specs/*/spec.md` (one level under each feature directory).
+2. If `.specify/feature.json` exists and its `feature_directory` contains `spec.md`, mark that spec `current`. Ignore a stale pointer whose directory does not exist.
+3. If no spec exists, tell me "No spec.md found. Please run `/speckit-specify` first." and stop.
+4. If exactly one spec exists, use it as the only source.
+5. If more than one exists, show a table — directory, title from the first H1, last modified, current or not — and ask me to confirm the source set. Default to the whole project with all specs included; I may exclude specs that are internal, maintenance, or not product-facing. Never choose by modification time and never choose silently.
+6. Read `.specify/memory/constitution.md` and the root `README.md` if they exist, as project-level background. They are not specs and are never modified.
+
+If `brand.md` already has section 0, treat its recorded set as the current scope. Compare it with the `specs/` tree, report added or removed files, and ask before changing scope.
+
+Record the confirmed set in section 0, "Sources", of `brand.md` before writing any other section. Every later command reads that section and does not resolve specs again.
+
+- Read the confirmed sources and existing project docs only; never modify any `spec.md`.
 
 ## Existing Document
 
@@ -37,27 +49,30 @@ If `docs/brand/brand.md` exists:
 - If the input says `mode=continue` or `mode=rebuild`, follow it.
 - Otherwise ask: "Continue the existing brand.md, or start over?" Never overwrite silently.
 - In continue mode, read the document, identify the first incomplete section, and resume there.
+- If an existing `brand.md` has no section 0, "Sources", add it from the resolution above before resuming.
 
 ## Working Rules
 
 - Update `brand.md` progressively after each confirmed stage so progress survives interruption.
-- Keep the document in one language (the language of `spec.md`).
+- Keep the document in one language (the language recorded in Sources).
 - Use only directional description in the visual and language sections: no hex values, font sizes, or other implementation numbers. Concrete values belong to `tokens.css` later.
-- Do not repeat functionality already described in `spec.md`.
+- Do not repeat functionality already described in the specs. If one spec contradicts another, surface the conflict instead of averaging it.
 - Everything must trace back to the audience and the brand core. If a section cannot be derived, say so and ask.
 
 ## Stage 0: Project Brief
 
-1. Read `spec.md` fully. Extract:
+1. Read every included source fully, plus the project background documents. Extract:
    - What the product or service does
    - Core features and user-facing flows
    - Who it serves and in what situations
    - Explicit constraints, non-goals, and existing decisions
-2. Summarize this as a one-screen brief: project, audience, core value, key constraints.
-3. Ask me to confirm or correct the brief. Stop and wait.
-4. Write it as section 1 of `brand.md`, noting whether it came from `spec.md` or from my corrections.
+   - Which source each fact comes from, and which facts only one spec states
+2. If two sources disagree on audience, scope, or behavior, state the conflict and ask which one governs. Do not average them or pick silently.
+3. Summarize this as a one-screen brief: project, audience, core value, key constraints.
+4. Ask me to confirm or correct the brief. Stop and wait.
+5. Write it as section 1 of `brand.md`, noting whether it came from the sources or from my corrections.
 
-Do not invent product facts. If `spec.md` is silent on something that matters, ask.
+Do not invent product facts. If the sources are silent on something that matters, ask.
 
 ## Stage 1: Audience Profiles
 
@@ -94,7 +109,7 @@ Do not invent product facts. If `spec.md` is silent on something that matters, a
 
 Ask only naming-specific questions, skipping what the brief already answers:
 
-- Will the product or category expand beyond what `spec.md` describes?
+- Will the product or category expand beyond what the sources describe?
 - Which language markets matter: Chinese only, bilingual Chinese/English, pinyin, or another combination?
 - Hard constraints: length, characters that must or must not appear, desired domain or store availability
 - Do you already have a name?
@@ -178,7 +193,7 @@ Write sections 6–8 of `brand.md`. Then check the derivation chain:
 
 - Can every visual direction be traced to the brand core?
 - Is the language direction consistent with the chosen tone?
-- Is anything copied from `spec.md` that adds no brand decision?
+- Is anything copied from the sources that adds no brand decision?
 
 Fix breaks before reporting completion. Initialize section 9, "Decision log", and record the anchor, name, and slogan decisions made so far.
 
@@ -186,6 +201,7 @@ Fix breaks before reporting completion. Initialize section 9, "Decision log", an
 
 Adapt headings to the document language. The required sections are:
 
+0. Sources — confirmed spec set with status, output language, confirmation date
 1. Project brief
 2. Audience profiles
 3. Positioning and cultural anchors
@@ -196,9 +212,12 @@ Adapt headings to the document language. The required sections are:
 8. Execution principles
 9. Decision log — date, stage, question, decision
 
+Section 0 must list every discovered spec with status `current`, `included`, or `excluded`, and record the output language. Downstream commands read it instead of re-resolving specs.
+
 ## Boundaries
 
-- Never modify `spec.md`.
+- Never modify any `spec.md`.
+- Keep section 0 current when I add or exclude a spec in a later run.
 - Do not create `docs/brand/name-check.md`; screening is written into `brand.md`.
 - Do not write `tokens.css`, logos, or prototypes; those belong to `speckit-brand-prototype`.
 - Never fabricate anchors, quotations, or screening results.
@@ -207,4 +226,4 @@ Adapt headings to the document language. The required sections are:
 
 ## Completion
 
-Report the path, which sections are settled, which decisions I made, and any open questions. Tell me the next step is `speckit-brand-clarify` (or let the full workflow continue).
+Report the path, the confirmed source set, which sections are settled, which decisions I made, and any open questions. Tell me the next step is `speckit-brand-clarify` (or let the full workflow continue).
